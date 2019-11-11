@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+    <head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<meta http-equiv="cache-control" content="no-cache" />
+
+		<link rel="stylesheet" type="text/css" href="css/gridview.css" />
+		<link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
+		<link rel="stylesheet" type="text/css" href="css/menu.css" />
+
+		<script src="js/jquery.js"></script>
+		<script src="js/localStorage.js"></script>
+		<script src="js/globVar.js"></script>
+		<script src="js/style.js"></script>
+		<script src="js/menu.js"></script>
+		<script src="js/arrayWaehlen.js"></script>
+		<script src="js/sortieren.js"></script>
+		<script src="js/start.js"></script>
+		<script src="js/engine.js"></script>
+		<script src="js/timer.js"></script>
+		<script src="js/selecting.js"></script>
+		<script src="js/kontrolle.js"></script>
+		<script src="js/highscore.js"></script>
+
+		<title>Bibelbücher Sortieren</title>
+	</head>
+
+	<body onresize="funcMenuVisibility(); funcBibelbuecherBreite();">
+		<!--HAUPTMENÜ-->
+		<div id="idHauptmenu" class="menufenster row">
+			<div style="height: 30px">&nbsp;</div>
+
+			<div class="menutitel" id="idMenuHauptmenu">
+				<p class="menu">Hauptmenü</p>
+			</div>
+			<div class="menulink" id="idMenuHighscore" onclick="funcHighscoreAusgabe(); funcMenuVisibility(6);">
+				<p class="menu">Highscore</p>
+			</div>
+			<div class="menulink" id="idMenuRename" onclick="funcMenuVisibility(5); funcArrayAuflisten();">
+				<p id="idSpracheAusgabe" class="menu">&nbsp;</p> <!--NEU-->
+			</div>
+			<div class="menulink" id="idMenuKontrolle" onclick="funcStatusKontrolleAendern();">
+				<p id="idStatusKontrolle" class="menu">&nbsp;</p>
+			</div>
+			<!--NEU-->
+			<div class="menulink" id="idMenuSortieren" onclick="funcStatusSortierenAendern();">
+				<p id="idStatusSortieren" class="menu">&nbsp;</p>
+			</div>
+			<!--NEU ENDE-->
+			<div class="menulink" id="idMenuSchliessen" onclick="funcMenuVisibility(1); funcStart();">
+				<p class="menu">Start</p>
+			</div>
+
+			<div style="height: 30px">&nbsp;</div>
+		</div>
+
+		<!--HIGHSCORE-->
+		<div id="idHighscoremenu" class="menufenster row unvisible">
+			<div style="height: 30px">&nbsp;</div>
+
+			<div class="menutitel">
+				<p class="menu">Highscore</p>
+			</div>
+
+			<div class="menulink">
+				<p id="idHighscoreAusgabe" class="menu">?:??</p>
+			</div>
+
+			<div id="idHighscoreLoeschen" class="menulink" onclick="funcHighscoreDeletFrage();">
+				<p class="menu">Highscore löschen?</p>
+			</div>
+
+			<div id="idHighscoreSichAbfr" class="menulink unvisible">
+				<p class="menu"><button class="abfrage" onclick="funcHighscoreDeletAbbrechen()">Abbrechen</button><button class="abfrage" onclick="funcHighscoreDeletBest()">Löschen</button></p>
+			</div>
+
+			<div class="menulink" id="idSpracheZurueck" onclick="funcMenuVisibility(4);">
+				<p class="menu">Zurück</p>
+			</div>
+
+			<div style="height: 30px">&nbsp;</div>
+		</div>
+
+		<!--SPRACHE WÄHLEN-->
+		<div id="idSprachemenu" class="menufenster row unvisible">
+			<div style="height: 30px">&nbsp;</div>
+
+			<div class="menutitel">
+				<p class="menu">Sprache wählen</p>
+			</div>
+			<div id="idListeSprachen">
+			</div>
+			<div class="menulink" id="idSpracheZurueck" onclick="funcMenuVisibility(4);">
+				<p class="menu">Zurück</p>
+			</div>
+
+			<div style="height: 30px">&nbsp;</div>
+		</div>
+
+		<!--SPIEL-->
+		<div class="unvisible" id="idBibelbuchContainer">
+			<div id="idTimerContainer"><p class="textdunn">Deine Zeit: <span class="textdunn" id="idTimer">0:00</span></p></div>
+			<div class="col-12">
+				<div class="col-12">
+					<h1 class="textdunn">Hebräisch Aramäische Schriften</h1>
+				</div>
+
+				<div class="ausgabe col-12" id="idListe1">
+				</div>
+			</div>
+
+			<div class="col-12">
+				<div class="col-12">
+					<h1 class="textdunn">Christlich Griechische Schriften</h1>
+				</div>
+
+				<div class="ausgabe col-12" id="idListe2">
+				</div>
+			</div>
+
+			<div class="row col-12" style="height: 60px">
+				<p>&nbsp;</p>
+			</div>
+
+			<div id="idMenuButton" onclick="funcMenuVisibility(2); funcTimerStop()">
+				<img id="idMenuButtonImage" src="img/icon.png" alt="Menü" />
+			</div>
+
+			<div id="idInfo" class="row col-12 infoleiste fix">
+				<p id="idInfoleisteFix">Informationsleiste</p>
+			</div>
+
+		</div>
+
+		<!--PAUSEMENÜ-->
+		<div id="idPausemenu" class="menufenster row unvisible">
+			<div style="height: 30px">&nbsp;</div>
+
+			<div class="menutitel">
+				<p class="menu">PAUSE</p>
+			</div>
+			<div class="menulink" id="idPausemenuWeiter" onclick="funcTimerStart(); funcMenuVisibility(1);">
+				<p class="menu" >Fortsetzen</p>
+			</div>
+			<div class="menulink" id="idPausemenuNeustart" onclick="funcStart(); funcMenuVisibility(1);">
+				<p class="menu" >Neustart</p>
+			</div>
+			<div class="menulink" id="idPausemenuHauptmenu" onclick="funcTimerStop(); funcMenuVisibility(4);">
+				<p class="menu">Hauptmenü</p>
+			</div>
+			<div style="height: 30px">&nbsp;</div>
+		</div>
+
+		<!--ENDSCREEN-->
+		<div class="row col-12 unvisible" id="idEndeContainer">
+			<p class='ende'>Perfekt! Du hast alle Bibelbücher in die richtige Reihenfolge gebracht.</p>
+			<p class='ende'>Dafür hast du <span id="idEndzeit">?:??</span> benötigt.</p>
+			<p class='ende unvisible' id="idEndscreenHighscore"><br/>Dies ist ein neuer Highscore!</p>
+			<br />
+			<p class='ende'>Möchtest du nochmal spielen?</p>
+			<button class="ende" onclick="funcMenuVisibility(4); funcTimerStop();">Zurück zum Hauptmenü</button>
+			<button class="ende" onclick="funcMenuVisibility(1); funcStart();">Na klar!</button>
+		</div>
+		
+	</body>
+</html>

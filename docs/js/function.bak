@@ -1,0 +1,152 @@
+﻿function funcStart()
+{
+	glBibelbuecherOriginal = glBibelbuecherSelect;
+	var temp = new Array(); // Speichert alle verwendeten ArrayPositionen
+	glBibelbuecherAusgabe = new Array();
+
+	//Bibelbücher umsortieren
+	
+	
+	var j = 0;
+	//while(glBibelbuecherAusgabe.length < 66)
+	while(glBibelbuecherAusgabe.length < 66)
+	{
+		var zufall = funcMathZufallszahl(0, 65);
+
+		//Überprüfen, ob die Zufallszahl bereits vergeben wurden
+		//Und ob das Bibelbuch nicht von beginn an richtig liegt
+		if((temp.indexOf(zufall) == -1) && (zufall !== j))
+		{
+			if(glSortiert === 1)
+			{
+				if((j <=38) && (zufall <= 38))
+				{
+					temp[j] = zufall;
+					glBibelbuecherAusgabe[j] = glBibelbuecherOriginal[zufall+2];
+					j++;
+				} else if((j >38) && (zufall > 38))
+				{
+					temp[j] = zufall;
+					glBibelbuecherAusgabe[j] = glBibelbuecherOriginal[zufall+2];
+					j++;
+				}
+			} else 
+			{
+				temp[j] = zufall;
+				glBibelbuecherAusgabe[j] = glBibelbuecherOriginal[zufall+2];
+				j++;
+			}
+		}
+	}
+
+	/*
+		##################
+		-----DEBUGGER-----
+		##################
+	*/
+	var debug = 0;
+	if(debug == 1)
+	{
+		for(i = 0; i <= 65; i++)
+		{
+			glBibelbuecherAusgabe[i] = glBibelbuecherOriginal[i+2];
+		}
+	}
+
+	//Bibelbücher ausgeben
+	funcBibbAusgabe(glBibelbuecherAusgabe); //Ausgabe der Bibelbücher
+}
+
+function funcBibbAusgabe(array)
+{
+	//Inhalt löschen (Notwendig bei einem Neustart da der Text nur "geaddet" wird
+	$("#idListe1").empty(); $("#idListe2").empty();
+
+	var bibNamenNeu = array;
+	//Präffix und Suffix
+	var ausgabe01 = '<p id="idName';
+	var ausgabe02 = '" class="Bibelbuch textdunn ';
+	var ausgabe03 = glBibelbuecherOriginal[1]; /*kurz oder lang*/
+	var ausgabe04 = '" onclick="funcSelectName('
+	var ausgabe05 = ')">';
+	var ausgabe06 = '</p>';
+
+	var i = 0;
+	var idNr = 1;
+	var counter = 0;
+	
+	while(i < array.length)
+	{
+		/*<p id="idName12" class="Bibelbuch lang dunkel" onclick="funcSelectName(12)">Nehemia</p>*/
+		var ausgabe = ausgabe01 + idNr + ausgabe02 + ausgabe03 + ausgabe04 + idNr + ausgabe05 + array[i] + ausgabe06;
+		
+		if(counter <= 38)
+		{
+			$("#idListe1").append(ausgabe);
+		} else
+		{
+			$("#idListe2").append(ausgabe);
+		}
+
+		idNr++;
+		counter++;
+		i++;
+	}
+
+	//Farbschattierung
+	var i = 1;
+	while(i <= 66)
+	{
+		if(i <= 5)
+		{
+			$("#idName" + i).addClass("hell");
+		} else
+		if((i >= 6) && (i <= 17))
+		{
+			$("#idName" + i).addClass("dunkel");
+		} else
+		if((i >= 18) && (i <= 22))
+		{
+			$("#idName" + i).addClass("hell");
+		} else
+		if((i >= 23) && (i <= 39))
+		{
+			$("#idName" + i).addClass("dunkel");
+		} else
+		if((i >= 40) && (i <= 43))
+		{
+			$("#idName" + i).addClass("hell");
+		} else
+		if((i >= 23) && (i <= 39))
+		{
+			$("#idName" + i).addClass("dunkel");
+		} else
+		if((i >= 40) && (i <= 43))
+		{
+			$("#idName" + i).addClass("hell");
+		} else
+		if(i == 44)
+		{
+			$("#idName" + i).addClass("dunkel");
+		} else
+		if((i >= 45) && (i <= 65))
+		{
+			$("#idName" + i).addClass("hell");
+		} else
+		if((i == 66))
+		{
+			$("#idName" + i).addClass("dunkel");
+		}
+		i++;
+	}
+	glTime = 0;
+	funcTimerStart();
+	funcKontrolle(); /*Um die Infoleiste zu befüllen*/
+	funcBibelbuecherBreite();
+}
+
+//Zufallszahl zwischen ...
+function funcMathZufallszahl(min, max)
+{
+	return min + parseInt( Math.random() * ( (max + 1 ) - min ));
+}
