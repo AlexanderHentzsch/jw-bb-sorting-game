@@ -1,10 +1,12 @@
-﻿# Das Bibelbücher-Sortier-Spiel
+# Das Bibelbücher-Sortier-Spiel
 In diesem Spiel müssen die Bibelbücher wieder in die richtige Reihenfolge gebracht werden.
 
 Dafür muss nur eine Kachel angeklickt werden, welche man verschieben möchte - diese wird dann farblich gekennzeichnet - 
 und dann die Kachel, mit welcher sie den Platz tauschen soll. Kachel A tauscht dann mit Kachel B den Platz.
 
 Das Spiel ist beendet, wenn alle Kacheln sich in der richtigen Reihenfolge befinden.
+
+[Jetzt Spielen](https://billalex-basoftware.github.io/jw-bb-sorting-game/)
 
 
 ### Optionen
