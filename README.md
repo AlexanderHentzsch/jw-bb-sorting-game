@@ -6,7 +6,7 @@ und dann die Kachel, mit welcher sie den Platz tauschen soll. Kachel A tauscht d
 
 Das Spiel ist beendet, wenn alle Kacheln sich in der richtigen Reihenfolge befinden.
 
-[Jetzt Spielen](https://billalex-basoftware.github.io/jw-bb-sorting-game/)
+[Jetzt Spielen](https://alexanderhentzsch.github.io/jw-bb-sorting-game/)
 
 
 ### Optionen
@@ -24,4 +24,4 @@ Dies ist ein sehr altes Projekt von mir und soll nochmal überarbeitet werden. D
 
 
 ### Lizenz
-[_**Das Bibelbücher-Sortier-Spiel**_](https://github.com/BillAlex-BASoftware/jw-bb-sorting-game) - [The MIT License (MIT)](https://github.com/BillAlex-BASoftware/jw-bb-sorting-game/blob/master/LICENSE)
+[_**Das Bibelbücher-Sortier-Spiel**_](https://github.com/alexanderhentzsch/jw-bb-sorting-game) - [The MIT License (MIT)](https://github.com/alexanderhentzsch/jw-bb-sorting-game/blob/master/LICENSE)
