@@ -25,3 +25,6 @@ Dies ist ein sehr altes Projekt von mir und soll nochmal überarbeitet werden. D
 
 ### Lizenz
 [_**Das Bibelbücher-Sortier-Spiel**_](https://github.com/alexanderhentzsch/jw-bb-sorting-game) - [The MIT License (MIT)](https://github.com/alexanderhentzsch/jw-bb-sorting-game/blob/master/LICENSE)
+
+### Bildnachweis
+- App-Symbol: Icons erstellt von [Freepik](https://www.freepik.com) from [www.flaticon.com](https://www.flaticon.com/de/)
