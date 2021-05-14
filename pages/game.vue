@@ -1,7 +1,9 @@
 <template>
-    <v-container class="px-12 px-md-0">
+    <v-container class="px-6 px-md-0">
         <v-row>
-            <v-btn @click="pause()">{{ playtime }} Pause</v-btn>
+            <v-col class="text-center">
+                <v-btn @click="pause()" x-large tile plain>{{ playtime }} Pause</v-btn>
+            </v-col>
         </v-row>
         <v-row>
             <v-col cols="12" md="6">
