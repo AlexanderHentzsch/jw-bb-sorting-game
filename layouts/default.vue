@@ -7,7 +7,26 @@
 </template>
 
 <script>
-export default {}
+export default {
+    computed: {
+        darkMode() {
+            return this.$store.getters["settings/isDarkMode"];
+        },
+    },
+    watch: {
+        darkMode() {
+            this.setDarkMode();
+        },
+    },
+    mounted() {
+        this.setDarkMode();
+    },
+    methods: {
+        setDarkMode() {
+            this.$vuetify.theme.dark = this.darkMode;
+        },
+    },
+}
 </script>
 
 <style>
