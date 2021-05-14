@@ -41,7 +41,7 @@
                 <v-card-title class="justify-center">Pause</v-card-title>
                 <v-card-text>
                     <v-btn x-large block @click="resume()">Weiter</v-btn>
-                    <v-btn x-large block @click="restart()">Neustarten</v-btn>
+                    <v-btn x-large block @click="initGame()">Neustarten</v-btn>
                     <nuxt-link to="/" style="text-decoration: none">
                         <v-btn x-large block>Hauptmenü</v-btn>
                     </nuxt-link>
@@ -54,7 +54,7 @@
                 <v-card-title class="justify-center">Beendet</v-card-title>
                 <v-card-text>
                     Du hast das Spiel erfolgreich nach {{playtime}} abgeschlossen.
-                    <v-btn x-large block @click="restart()">Neustarten</v-btn>
+                    <v-btn x-large block @click="initGame()">Neustarten</v-btn>
                     <nuxt-link to="/" style="text-decoration: none">
                         <v-btn x-large block>Hauptmenü</v-btn>
                     </nuxt-link>
@@ -123,19 +123,21 @@ export default {
                 this.current = helper.randomArray(hebrew.concat(greek));
             }
 
-            // hebrew = helper.clone(books.de.short.hebrew)
-            // greek = helper.clone(books.de.short.greek)
-
+            this.passedSeconds = 0;
+            this.selected = null;
+            this.correct = 0;
+            this.displayOff();
             this.startStopwatch();
+        },
+        displayOff(){
+          for(let key in this.display) {
+              this.display[key] = false;
+          }
         },
         startStopwatch() {
             this.intervalHandler = setInterval(() => {
                 this.passedSeconds = ++this.passedSeconds;
             }, 1000);
-        },
-        restart() {
-            // TODO
-            this.resume();
         },
         hebrew() {
             return this.current.filter((v, i) => i < 39);
