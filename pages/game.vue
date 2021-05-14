@@ -8,12 +8,17 @@
         <v-row>
             <v-col cols="12" md="6">
                 <v-row>
-                    <h2>Hebräisch-Aramäische Schriften</h2>
+                    <v-col class="px-1">
+                        <h2 class="text-uppercase font-weight-light text-body-1">
+                            Hebräisch-Aramäische Schriften
+                        </h2>
+                    </v-col>
                 </v-row>
                 <v-row>
                     <v-btn class="bibelbuch-quadratisch"
                            v-for="(name, index) in hebrew()"
                            :key="name"
+                           tile
                            :style="coloring(index)"
                            @click="select(index)">
                         {{ name }}
@@ -22,12 +27,17 @@
             </v-col>
             <v-col cols="12" md="6" class="mt-6 mt-md-0">
                 <v-row>
-                    <h2>Christliche Griechische Schriften</h2>
+                    <v-col class="px-1">
+                        <h2 class="text-uppercase font-weight-light text-body-1">
+                            Christliche Griechische Schriften
+                        </h2>
+                    </v-col>
                 </v-row>
                 <v-row>
                     <v-btn class="bibelbuch-quadratisch"
                            v-for="(name, index) in greek()"
                            :key="name"
+                           tile
                            :style="coloring(index + 39)"
                            @click="select(index + 39)">
                         {{ name }}
@@ -36,7 +46,11 @@
             </v-col>
         </v-row>
 
-        <v-row>{{ correct }}/66</v-row>
+        <v-row :class="classScore">
+            <v-col class="text-center font-weight-light">
+                {{ correct }} von 66
+            </v-col>
+        </v-row>
 
         <v-dialog v-model="display.pause" persistent overlay-opacity="1" max-width="500px">
             <v-card>
@@ -55,7 +69,7 @@
             <v-card>
                 <v-card-title class="justify-center">Beendet</v-card-title>
                 <v-card-text>
-                    Du hast das Spiel erfolgreich nach {{playtime}} abgeschlossen.
+                    Du hast das Spiel erfolgreich nach {{ playtime }} abgeschlossen.
                     <v-btn x-large block @click="initGame()">Neustarten</v-btn>
                     <nuxt-link to="/" style="text-decoration: none">
                         <v-btn x-large block>Hauptmenü</v-btn>
@@ -98,6 +112,14 @@ export default {
             let min = Math.floor(this.passedSeconds / 60);
             let sec = this.passedSeconds - (min * 60);
             return min + ":" + sec.toString().padStart(2, "0");
+        },
+        classScore(){
+            let bg = "grey lighten-3";
+
+            if(this.$store.getters["settings/isDarkMode"])
+                bg = "grey darken-3"
+
+            return bg + " mt-12";
         }
     },
     mounted() {
@@ -131,10 +153,10 @@ export default {
             this.displayOff();
             this.startStopwatch();
         },
-        displayOff(){
-          for(let key in this.display) {
-              this.display[key] = false;
-          }
+        displayOff() {
+            for (let key in this.display) {
+                this.display[key] = false;
+            }
         },
         startStopwatch() {
             this.intervalHandler = setInterval(() => {
