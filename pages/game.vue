@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <v-container class="px-12 px-md-0">
         <v-row>
             <v-btn @click="pause()">{{ playtime }} Pause</v-btn>
         </v-row>
@@ -61,7 +61,7 @@
                 </v-card-text>
             </v-card>
         </v-dialog>
-    </div>
+    </v-container>
 </template>
 
 <script>
