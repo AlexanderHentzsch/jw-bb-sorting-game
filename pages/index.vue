@@ -7,9 +7,9 @@
             <v-card-text class="text-center flex-grow-1">
                 <v-row>
                     <v-col>
-                        <v-btn to="/game" nuxt block elevation="0" outlined tile x-large class="mb-2">Neues Spiel</v-btn>
-                        <v-btn to="/game" nuxt block elevation="0" outlined tile x-large class="mb-2">Spielverlauf</v-btn>
-                        <v-btn to="/game" nuxt block elevation="0" outlined tile x-large class="mb-2">Einstellungen</v-btn>
+                        <v-btn to="/gametype" nuxt block elevation="0" outlined tile x-large class="mb-2">Neues Spiel</v-btn>
+                        <v-btn to="/" nuxt block elevation="0" outlined tile x-large class="mb-2">Spielverlauf</v-btn>
+                        <v-btn to="/" nuxt block elevation="0" outlined tile x-large class="mb-2">Einstellungen</v-btn>
                     </v-col>
                 </v-row>
             </v-card-text>
