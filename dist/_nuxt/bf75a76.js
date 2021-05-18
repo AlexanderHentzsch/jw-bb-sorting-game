@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{328:function(e,t,o){"use strict";o.r(t),t.default={"hello-world":"DE Hallo Welt test","home-page":"Startseite","not-found":"Nicht gefunden","other-error":"Ein Fehler trat auf"}}}]);
