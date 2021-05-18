@@ -46,11 +46,11 @@
             </v-col>
         </v-row>
 
-        <v-row v-if="searchedBooks.length > 0">
-            <v-col class="text-center">
+        <div v-if="searchedBooks.length > 0" class="container-next">
+            <p class="next-item">
                 {{ searchedBooks[0] }}
-            </v-col>
-        </v-row>
+            </p>
+        </div>
 
         <v-row>
             <v-col class="text-center">
@@ -244,5 +244,26 @@ export default {
     height: 64px !important;
     text-transform: none !important;
     margin: 3px;
+}
+
+.container-next {
+    background-color: #99AE5D;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center
+}
+
+.next-item {
+    flex: 0 0 auto;
+    margin: 0;
 }
 </style>
