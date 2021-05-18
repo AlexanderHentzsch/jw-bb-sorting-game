@@ -113,14 +113,28 @@ export default {
             let sec = this.passedSeconds - (min * 60);
             return min + ":" + sec.toString().padStart(2, "0");
         },
-        classScore(){
+        classScore() {
             let bg = "grey lighten-3";
 
-            if(this.$store.getters["settings/isDarkMode"])
+            if (this.$store.getters["settings/isDarkMode"])
                 bg = "grey darken-3"
 
             return bg + " mt-12";
-        }
+        },
+        _books() {
+            const lang = this.$store.getters['game/getLang'];
+            const type = this.$store.getters['game/getType'];
+
+            const hebrew = helper.clone(books[lang][type].hebrew);
+            const greek = helper.clone(books[lang][type].greek);
+            const all = hebrew.concat(greek);
+
+            return {
+                hebrew,
+                greek,
+                all,
+            }
+        },
     },
     mounted() {
         this.initGame();
@@ -132,14 +146,10 @@ export default {
     },
     methods: {
         initGame() {
-            const lang = this.$store.getters['game/getLang'];
-            const type = this.$store.getters['game/getType'];
-            const sorted = this.$store.getters['game/getSorted'];
+            let hebrew = this._books.hebrew;
+            let greek = this._books.greek;
 
-            let hebrew = helper.clone(books[lang][type].hebrew);
-            let greek = helper.clone(books[lang][type].greek);
-
-            if (sorted) {
+            if (this.$store.getters["game/getSorted"]) {
                 hebrew = helper.randomArray(hebrew);
                 greek = helper.randomArray(greek);
                 this.current = hebrew.concat(greek);
@@ -192,21 +202,18 @@ export default {
                 return {'backgroundColor': this.config.selected.backgroundColor};
 
             // color correct
-            const sum = books.de.short.hebrew.concat(books.de.short.greek);
-            if (this.current[index] === sum[index])
+            if (this.current[index] === this._books.all[index])
                 return {backgroundColor: this.config.correct.backgroundColor}
         },
         setCorrect() {
-            const _books = books.de.short.hebrew.concat(books.de.short.greek);
             let r = 0;
-            for (let i in _books) {
-                if (_books[i] === this.current[i])
+            for (let i in this._books.all) {
+                if (this._books.all[i] === this.current[i])
                     r = ++r;
             }
             this.correct = r;
         },
         isFinish() {
-            console.log('finish')
             if (this.correct !== 66)
                 return;
 
