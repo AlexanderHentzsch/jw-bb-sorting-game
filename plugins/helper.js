@@ -26,7 +26,6 @@ export function randomNumber(min, max, not) {
 }
 
 export function clone(obj) {
-    console.log(obj)
     try {
         return JSON.parse(JSON.stringify(obj));
     } catch (e) {
