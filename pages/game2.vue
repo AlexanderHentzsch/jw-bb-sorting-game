@@ -5,6 +5,15 @@
                 <v-btn @click="pause()" x-large tile plain>{{ playtime }} Pause</v-btn>
             </v-col>
         </v-row>
+
+        <template v-if="searchedBooks.length > 0">
+            <div class="container-next hidden-sm-and-down">
+                <p class="next-item">
+                    {{ searchedBooks[0] }}
+                </p>
+            </div>
+        </template>
+
         <v-row>
             <v-col cols="12" md="6">
                 <v-row>
@@ -12,6 +21,13 @@
                         <h2 class="text-uppercase font-weight-light text-body-1">
                             Hebräisch-Aramäische Schriften
                         </h2>
+                        <template v-if="searchedBooks.length > 0">
+                            <div class="container-next hidden-md-and-up">
+                                <p class="next-item">
+                                    {{ searchedBooks[0] }}
+                                </p>
+                            </div>
+                        </template>
                     </v-col>
                 </v-row>
                 <v-row>
@@ -31,6 +47,13 @@
                         <h2 class="text-uppercase font-weight-light text-body-1">
                             Christliche Griechische Schriften
                         </h2>
+                        <template v-if="searchedBooks.length > 0">
+                            <div class="container-next hidden-md-and-up">
+                                <p class="next-item">
+                                    {{ searchedBooks[0] }}
+                                </p>
+                            </div>
+                        </template>
                     </v-col>
                 </v-row>
                 <v-row>
@@ -45,12 +68,6 @@
                 </v-row>
             </v-col>
         </v-row>
-
-        <div v-if="searchedBooks.length > 0" class="container-next">
-            <p class="next-item">
-                {{ searchedBooks[0] }}
-            </p>
-        </div>
 
         <v-row>
             <v-col class="text-center">
@@ -247,19 +264,16 @@ export default {
 }
 
 .container-next {
+    width: 64px !important;
+    height: 64px !important;
     background-color: #99AE5D;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 50px;
-
+    margin-bottom: 16px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    align-content: center
+    align-content: center;
 }
 
 .next-item {
