@@ -8,10 +8,17 @@
                 <v-row>
                     <v-col>
                         <v-btn to="/game" nuxt block elevation="0" outlined tile x-large class="mb-2">Sortieren</v-btn>
-                        <v-btn to="/game2" nuxt block elevation="0" outlined tile x-large class="mb-2">Geordnet</v-btn>
+                        <v-btn to="/game2" nuxt block elevation="0" outlined tile x-large class="mb-2">Der Reihe nach
+                        </v-btn>
+                        <v-btn to="/game3" nuxt block elevation="0" outlined tile x-large class="mb-2">Von Mose nach
+                            Offenbarung
+                        </v-btn>
                     </v-col>
                 </v-row>
             </v-card-text>
+            <v-card-actions>
+                <v-btn to="/" nuxt block elevation="0" outlined tile x-large class="mb-2">Zurück</v-btn>
+            </v-card-actions>
         </v-card>
     </v-container>
 </template>
