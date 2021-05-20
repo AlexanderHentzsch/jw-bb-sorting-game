@@ -1,7 +1,9 @@
 export const state = () => ({
+    checkEnabled: true,
+    colorGroups: true,
     lang: 'de',
-    type: 'short',
     sorted: true,
+    type: 'short',
 });
 
 export const getters = {
@@ -11,12 +13,19 @@ export const getters = {
     getLang(state) {
         return state.lang;
     },
-    getType(state) {
+    getLangType(state) {
         return state.type;
     },
-    getSorted(state) {
+    isCheckEnabled(state) {
+        return state.checkEnabled;
+    },
+    isColorGroups(state) {
+        return state.colorGroups;
+    },
+
+    isSorted(state) {
         return state.sorted;
-    }
+    },
 };
 
 export const mutations = {

@@ -151,7 +151,7 @@ export default {
         },
         _books() {
             const lang = this.$store.getters['game/getLang'];
-            const type = this.$store.getters['game/getType'];
+            const type = this.$store.getters['game/getLangType'];
 
             const hebrew = helper.clone(books[lang][type].hebrew);
             const greek = helper.clone(books[lang][type].greek);
@@ -174,14 +174,14 @@ export default {
     },
     methods: {
         initGame() {
-            const sorted = this.$store.getters["game/getSorted"];
+            const sorted = this.$store.getters["game/isSorted"];
 
-            let hebrew = this._books.hebrew;
-            let greek = this._books.greek;
+            let hebrew = helper.clone(this._books.hebrew);
+            let greek = helper.clone(this._books.greek);
 
             if (sorted) {
                 hebrew = helper.randomArray(hebrew);
-                greek = helper.randomArray(greek);
+              greek = helper.randomArray(greek);
                 this.searchedBooks = hebrew.concat(greek);
             } else {
                 this.searchedBooks = helper.randomArray(hebrew.concat(greek));
@@ -192,6 +192,7 @@ export default {
                 this.current[i] = "";
                 i++;
             }
+            this.errors = 0;
             this.passedSeconds = 0;
             this.correct = 0;
             this.displayOff();
