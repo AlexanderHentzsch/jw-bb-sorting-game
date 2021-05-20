@@ -26,5 +26,8 @@ node_modules/
 # nuxt.js build output
 .nuxt
 
+# build
+dist
+
 # Service worker
 sw.*
