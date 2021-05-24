@@ -52,42 +52,27 @@
             </v-col>
         </v-row>
 
-        <v-dialog v-model="display.pause" persistent overlay-opacity="1" max-width="500px">
-            <v-card>
-                <v-card-title class="justify-center">Pause</v-card-title>
-                <v-card-text>
-                    <v-btn x-large block @click="resume()">Weiter</v-btn>
-                    <v-btn x-large block @click="initGame()">Neustarten</v-btn>
-                    <nuxt-link to="/" style="text-decoration: none">
-                        <v-btn x-large block>Hauptmenü</v-btn>
-                    </nuxt-link>
-                </v-card-text>
-            </v-card>
-        </v-dialog>
+        <PauseMenu :display="display.pause" :init-game="initGame" :resume="resume"/>
 
-        <v-dialog v-model="display.finish" persistent overlay-opacity="1" max-width="500px">
-            <v-card>
-                <v-card-title class="justify-center">Beendet</v-card-title>
-                <v-card-text>
-                    Du hast das Spiel erfolgreich nach {{ playtime }} abgeschlossen.
-                    <v-btn x-large block @click="initGame()">Neustarten</v-btn>
-                    <nuxt-link to="/" style="text-decoration: none">
-                        <v-btn x-large block>Hauptmenü</v-btn>
-                    </nuxt-link>
-                </v-card-text>
-            </v-card>
-        </v-dialog>
+        <FinishMenu :display="display.finish" :init-game="initGame" :playtime="playtime"/>
     </v-container>
 </template>
 
 <script>
 import * as helper from "~/plugins/helper";
-import books from "~/biblebooks";
+
+import PauseMenu from "~/components/PauseMenu";
+import FinishMenu from "~/components/FinishMenu";
+import GameEngine from "~/mixins/gameEngine";
+import BibleBookLanguages from "~/classes/BibleBookLanguages";
 
 export default {
     name: "game",
+    components: {FinishMenu, PauseMenu},
+    mixins: [GameEngine],
     data() {
         return {
+            books: [],
             current: [],
             correct: 0,
             errors: 0,
@@ -122,20 +107,6 @@ export default {
 
             return bg + " mt-12";
         },
-        _books() {
-            const lang = this.$store.getters['game/getLang'];
-            const type = this.$store.getters['game/getLangType'];
-
-            const hebrew = helper.clone(books[lang][type].hebrew);
-            const greek = helper.clone(books[lang][type].greek);
-            const all = hebrew.concat(greek);
-
-            return {
-                hebrew,
-                greek,
-                all,
-            }
-        },
     },
     mounted() {
         this.initGame();
@@ -147,15 +118,17 @@ export default {
     },
     methods: {
         initGame() {
-            let hebrew = helper.clone(this._books.hebrew);
-            let greek = helper.clone(this._books.greek);
+            const lang = this.$store.getters['game/getLang'];
+            const type = this.$store.getters['game/getLangType'];
+
+            this.books = new BibleBookLanguages()[lang][type];
 
             if (this.$store.getters["game/isSorted"]) {
-                hebrew = helper.randomArray(hebrew);
-                greek = helper.randomArray(greek);
+                let hebrew = helper.randomArray(this.books.hebrew);
+                let greek = helper.randomArray(this.books.greek);
                 this.current = hebrew.concat(greek);
             } else {
-                this.current = helper.randomArray(hebrew.concat(greek));
+                this.current = helper.randomArray(this.books.hebrew.concat(this.books.greek));
             }
 
             this.errors = 0;
@@ -203,14 +176,15 @@ export default {
             if (index === this.selected)
                 return {'backgroundColor': this.config.selected.backgroundColor};
 
+            console.log(this.books)
             // color correct
-            if (this.current[index] === this._books.all[index])
+            if (this.current[index] === this.books.both[index])
                 return {backgroundColor: this.config.correct.backgroundColor}
         },
         setCorrect() {
             let r = 0;
-            for (let i in this._books.all) {
-                if (this._books.all[i] === this.current[i])
+            for (let i in this.books.both) {
+                if (this.books.both[i] === this.current[i])
                     r = ++r;
             }
             this.correct = r;
@@ -229,7 +203,7 @@ export default {
         resume() {
             this.display.pause = false;
             this.startStopwatch();
-        }
+        },
     }
 }
 </script>
